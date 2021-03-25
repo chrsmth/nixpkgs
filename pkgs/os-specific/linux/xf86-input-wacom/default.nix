@@ -3,11 +3,14 @@
 , ncurses, pkg-config, xorgserver, udev, libXinerama, pixman }:
 
 stdenv.mkDerivation rec {
-  name = "xf86-input-wacom-0.36.0";
+  pname = "xf86-input-wacom";
+  version = "0.40.0";
 
-  src = fetchurl {
-    url = "mirror://sourceforge/linuxwacom/${name}.tar.bz2";
-    sha256 = "1xi39hl8ddgj9m7m2k2ll2r3wh0k0aq45fvrsv43651bhz9cbrza";
+  src = fetchFromGitHub {
+    owner = "linuxwacom";
+    repo = "xf86-input-wacom";
+    rev = "${pname}-${version}";
+    sha256 = "0cwsjr42laicbj63rf0rd2adn2kvzcs0ab93m07qmvz1ch0a0lhx";
   };
 
   buildInputs = [ xorgproto libX11 libXext libXi libXrandr libXrender
@@ -24,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     maintainers = [ maintainers.goibhniu ];
     description = "Wacom digitizer driver for X11";
-    homepage = "http://linuxwacom.sourceforge.net";
+    homepage = "https://github.com/linuxwacom/xf86-input-wacom";
     license = licenses.gpl2;
     platforms = platforms.linux; # Probably, works with other unices as well
   };
